@@ -3,6 +3,7 @@ pubkey = ['AF4DA60C5F2C9386200997AEA1F3', '76E716D95601A8D4E7265EC36A14'] #base 
 snum = '222222222' 
 
 from bignum import*
+from elliptic_curve import scalarMultiply
 import random as rand
 
 
@@ -72,7 +73,7 @@ def ECDSA(privkey, hash, B):
             comp = compare(eph_key, q_B) #compare Ke and q                     #compare(M, N)
     eph_key_inverse = modinv(eph_key,q_B,B) #compute ke^(-1)                   #modinv(M,P,B)
 
-    R = double_addECbig(G, eph_key, c_B, B)  # R = kE* G                       #double_addECbig(A, k, c, Base)
+    R = scalarMultiply(G, eph_key, c_B, B)  # R = kE* G                       #double_addECbig(A, k, c, Base)
     r = R[0] #extract xr
 
     product = multiply(privkey, r,B)   # d * r                                 #multiply(M, N, B)
@@ -118,10 +119,6 @@ d = get_privkey(snum) #get private key
 
 
 r,s = ECDSA(d, hash, B)  #call ECDSA signing function  
-
-#convert from base B to hex
-r = from16tohex(convert(r,B,16))  #convert(N,B1,B2)
-s = from16tohex(convert(s,B,16))  #convert(N,B1,B2)
 
 print(r,s) #print the result
 

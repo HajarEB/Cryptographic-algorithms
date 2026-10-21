@@ -7,7 +7,7 @@ def convert(N,B1,B2):
         x = add(x, [digit], B2)
     return x
 
-def scalarMultiply(scalar, a, p, B):
+def scalarMultiply(a, scalar, p, B):
     r = [0, 0] #r =[x0,x1]
     scalar = Bto10(scalar, B)
     while scalar > 0:

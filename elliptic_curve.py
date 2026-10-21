@@ -358,13 +358,11 @@ def test_suite():
     print("Test 4:", reduce([5,1], [9], 10))
     
     # Test big number setup
+    B = 10  # Elliptic curve modulus
     print(f"big_num_set_up([7, 9], {B}) = {big_num_set_up([7, 9], B)}")  # Big number setup test
     print(f"big_num_set_up([59], {B}) = {big_num_set_up([59], B)}")  #NO convert from num to list 
     
     print("\n Test elliptic curve point addition")
-    # Test elliptic curve point addition
-    B = 10  # Elliptic curve modulus
-
 # Test suite for addEC(x, y, c, B)
     print(f"addEC([0, 0], [0, 0], [997, 187, 658], {B}) = {addEC([0, 0], [0, 0], [997, 187, 658], B)}  # Expected: [0,0]")
     print(f"addEC([0, 0], [259, 116], [997, 187, 658], {B}) = {addEC([0, 0], [259, 116], [997, 187, 658], B)}  # Expected: [259,116]")
@@ -393,7 +391,6 @@ def test_suite():
 
 
     ##TEST DOUBLE EC
-    B = 10
     print(f"doublEC([0, 0], [0, 0], [997, 187, 658], {B}) = {doublEC([0, 0], [997, 187, 658], B)}  # Expected: [0,0]")
     print(f"doublEC([918, 431], [997, 187, 658], {B}) = {doublEC([918, 431], [997, 187, 658], B)}  # Expected: [580,560]")
     print(f"doublEC([895, 33], [997, 641, 72], {B}) = {doublEC([895, 33], [997, 641, 72], B)}  # Expected: [631,760]")

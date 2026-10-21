@@ -414,6 +414,6 @@ def test_suite():
     # print(f"doublEC([624, 54], [1021, 773, 243], {B}) = {doublEC([624, 54], [1021, 773, 243], B)}  # Expected: [342,591]")
 
 
-
-test_suite()
+if __name__ == "__main__":
+    test_suite()
 

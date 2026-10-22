@@ -41,8 +41,8 @@ See the [project README](./elliptic-curve-ecdsa/README.md) for implementation de
 ## Repository Structure
 
 ```text
-cryptography-implementations/
-├── cryptographic-algorithms/
+cryptography-algorithms/
+├── cryptographic-foundations/
 │   ├── modular_polynomial_arithmetic.py
 │   ├── feistel_network.py
 │   ├── aes_keccak.py

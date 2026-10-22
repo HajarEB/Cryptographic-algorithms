@@ -36,7 +36,7 @@ Developed as part of the **Cryptography course at Tampere University, Finland**,
 ## Project Structure
 
 ```text
-cryptographic-algorithms/
+cryptographic-foundations/
 ├── modular_polynomial_arithmetic.py
 ├── feistel_network.py
 ├── aes_keccak.py
@@ -54,7 +54,7 @@ cryptographic-algorithms/
 Clone the repository:
 
 ```bash
-git clone https://github.com/<username>/cryptographic-algorithms.git
+git clone https://github.com/HajarEB/cryptographic-foundations.git
 cd cryptographic-algorithms
 ```
 

@@ -74,8 +74,11 @@ if __name__=='__main__':
     mult = [i+1 for i in decimals]   
     for i in range(0,len(plainTList), 16):
         res = processWord(plainTList, i, scheduleKey, mult)
-        print("\n",res)
-
+    
+    print("\n **************** Encryption Results ****************")
+    print(f"\nPlaintext: {plainText}")
+    print(f"\nKey: {key}")
+    print(f"\nCiphertext: {res}")
 
  
             

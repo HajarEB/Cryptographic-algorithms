@@ -8,33 +8,21 @@ The implementations were developed as programming exercises to explore the mathe
 
 ## Projects
 
-### 1. [Cryptographic Algorithms](./cryptographic-foundations/)
+### 1. [Cryptographic Foundations](./cryptographic-foundations/)
 
-Implementations of fundamental mathematical operations and symmetric cryptographic constructions.
+Number theory and symmetric constructions built from first principles.
 
-**Key features:**
-- Modular exponentiation and polynomial arithmetic over finite fields.
-- Probabilistic primality testing using Miller–Rabin.
-- Primitive root computation and the Chinese Remainder Theorem.
-- Personalized 16-round Feistel encryption network.
-- AES-inspired transformations and a custom Keccak-inspired sponge construction.
-
-**Files:** `modular_polynomial_arithmetic.py`, `number_theory.py`, `feistel_network.py`, `aes_keccak.py`
+- Finite-field polynomial arithmetic, Miller–Rabin primality testing, primitive roots, and CRT.
+- A 16-round Feistel network and an AES/Keccak-inspired sponge hash.
 
 See the [project README](./cryptographic-foundations/README.md) for implementation details and usage instructions.
 
 ### 2. [Elliptic Curve Cryptography & ECDSA](./elliptic-curve-ecdsa/)
 
-Implementation of elliptic curve operations and ECDSA digital signature generation using custom arbitrary-precision arithmetic.
+ECDSA on the `secp112r1` curve, built on a custom arbitrary-precision integer library.
 
-**Key features:**
-- Arbitrary-precision integer arithmetic and modular inversion.
-- Elliptic curve point addition, doubling, and scalar multiplication.
-- Public key generation using elliptic curve scalar multiplication.
-- ECDSA signature generation using the `secp112r1` elliptic curve.
-- Basic signature-generation tests.
-
-**Files:** `bignum.py`, `ecdsa.py`, `keygen.py`, `test.py`
+- Big-number arithmetic and elliptic curve point operations, implemented without Python's built-in big integers.
+- Key generation, signing, and verification, tested with sign→verify round-trips.
 
 See the [project README](./elliptic-curve-ecdsa/README.md) for implementation details and usage instructions.
 

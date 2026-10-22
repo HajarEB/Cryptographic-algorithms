@@ -22,12 +22,8 @@ def modinvert(a, p):
     while v3 != 0:
       q = u3 // v3
       v1, v2, v3, u1, u2, u3 = (u1 - q * v1), (u2 - q * v2), (u3 - q * v3), v1, v2, v3
-	  
-    # print(u1," :is The value of m")
-    # print(u2," :is the value of p")
-    # print(u3," :is the value of the gcd")
 	
-    return u1,u2,u3
+    return u1, u2, u3
 
 
 # Trim the leading zeros from a polynomial. Leave [0] instead of nothing.

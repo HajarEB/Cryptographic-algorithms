@@ -50,21 +50,6 @@ python test.py
 
 The test generates two ECDSA signatures for the same private key and message hash, prints both signatures, and performs basic checks on their output format and nonzero values.
 
-You can also call the signing function directly:
-
-```python
-from ecdsa import ECDSA
-
-private_key = "215463721"
-message_hash = "1234567890abcdef"
-
-r, s = ECDSA(private_key, message_hash, 32)
-
-print("Signature:", r, s)
-```
-
-The private key and message hash are hexadecimal strings. The third argument specifies the base used for the big-number operations.
-
 ## Implementation Notes
 
 - Cryptographic calculations use the custom big-number representation rather than Python's built-in arbitrary-precision integers.

@@ -43,7 +43,7 @@ cryptography-algorithms/
 
 ## Technologies
 
-- **Language:** Python 3.13
+- **Language:** Python (Tested with Python 3.13)
 - **Dependencies:** Python standard library only
 - **Concepts:** Number theory, finite-field arithmetic, symmetric cryptography, elliptic curve cryptography, digital signatures
 

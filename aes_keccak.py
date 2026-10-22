@@ -212,14 +212,14 @@ def AESpermutations(S,snum):
         S = mixColumns(snum, S)
     return S
 
-#squeez the output 
+#squeeze the output 
 def squeezing(S,snum,outQ):
     if outQ < 0:
         raise ValueError("Output Length must be non-negative")
     out = []    # where to store the results 
     while len(out) < outQ:
         
-        # Extract the 2 first rows of S
+        # Extract the first 2 rows of S
         for row in S[:2]:
             out.extend(row) 
         
@@ -252,7 +252,7 @@ def readFile(fileName, outQ):
     res = squeezing(S,snum,outQ)
     return res
 
-snum = "22222222222"    # define the student number
+snum = "215463721"    # define the student number
 
 if __name__=='__main__': 
     #user Input

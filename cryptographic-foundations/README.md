@@ -41,6 +41,7 @@ cryptographic-foundations/
 ├── feistel_network.py
 ├── aes_keccak.py
 ├── number_theory.py
+├── samples.txt
 └── README.md
 ```
 

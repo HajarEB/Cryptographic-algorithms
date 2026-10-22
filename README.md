@@ -1,162 +1,81 @@
 # Cryptographic Algorithms – Python Implementations
 
-A collection of cryptographic algorithms implemented in Python as part of the **Cryptography course at Tampere University**.
+A collection of cryptographic algorithms implemented in Python as part of the **Cryptography course at Tampere University, Finland**.
 
-The project covers fundamental techniques used in symmetric and asymmetric cryptography, including modular arithmetic, Feistel networks, substitution boxes, hash constructions, primality testing, arbitrary-precision arithmetic, elliptic curve cryptography, and digital signatures.
+The project covers fundamental concepts in symmetric and asymmetric cryptography, including modular arithmetic, Feistel networks, substitution boxes, hash constructions, primality testing, arbitrary-precision arithmetic, elliptic curve cryptography, and digital signatures.
 
 The implementations were developed as programming exercises to explore the mathematical foundations and internal workings of cryptographic algorithms.
 
-## Implemented Algorithms
+## Projects
 
-| File | Algorithms and Concepts |
-|---|---|
-| `modular_polynomial_arithmetic.py` | Square-and-multiply, Extended Euclidean Algorithm, modular polynomial arithmetic |
-| `feistel_network.py` | Feistel network construction and encryption with round keys |
-| `aes_keccak.py` | Personalized S-box generation, sponge construction, AES-inspired transformations |
-| `number_theory.py` | Miller–Rabin primality testing, primitive roots, Chinese Remainder Theorem |
-| `bignum.py` | Arbitrary-precision arithmetic, division, modular reduction, modular inversion |
-| `elliptic_curve.py` | Elliptic curve point addition, doubling, scalar multiplication |
-| `ecdsa.py` | Elliptic Curve Digital Signature Algorithm (ECDSA) |
+### 1. [Cryptographic Algorithms](./cryptographic-algorithms/)
 
-## 1. Modular and Polynomial Arithmetic
+Implementations of fundamental mathematical operations and symmetric cryptographic constructions.
 
-**File:** `modular_polynomial_arithmetic.py`  
-**Exercises:** P1–P2
+**Key features:**
+- Modular exponentiation and polynomial arithmetic over finite fields.
+- Probabilistic primality testing using Miller–Rabin.
+- Primitive root computation and the Chinese Remainder Theorem.
+- Personalized 16-round Feistel encryption network.
+- AES-inspired transformations and a custom Keccak-inspired sponge construction.
 
-Implements fundamental arithmetic algorithms used in cryptography.
+**Files:** `modular_polynomial_arithmetic.py`, `number_theory.py`, `feistel_network.py`, `aes_keccak.py`
 
-- Square-and-multiply for efficient modular exponentiation.
-- Extended Euclidean Algorithm for computing greatest common divisors and Bézout coefficients.
-- Polynomial arithmetic over finite fields.
-- Polynomial division and remainder computation modulo a prime.
+See the [project README](./cryptographic-algorithms/README.md) for implementation details and usage instructions.
 
-These operations provide the mathematical foundation for more advanced public-key cryptographic algorithms.
+### 2. [Elliptic Curve Cryptography & ECDSA](./elliptic-curve-ecdsa/)
 
-## 2. Feistel Network
+Implementation of elliptic curve operations and ECDSA digital signature generation using custom arbitrary-precision arithmetic.
 
-**File:** `feistel_network.py`  
-**Exercises:** P3–P4
+**Key features:**
+- Arbitrary-precision integer arithmetic and modular inversion.
+- Elliptic curve point addition, doubling, and scalar multiplication.
+- Public key generation using elliptic curve scalar multiplication.
+- ECDSA signature generation using the `secp112r1` elliptic curve.
+- Basic signature-generation tests.
 
-Implements a custom Feistel-based encryption scheme to demonstrate the principles behind Feistel block ciphers.
+**Files:** `bignum.py`, `ecdsa.py`, `keygen.py`, `test.py`
 
-- Block processing using left and right halves.
-- Multiple rounds of Feistel transformations.
-- Round-dependent transformations.
-- Key schedule generation using matrix operations.
-- Encryption using round keys and modular arithmetic.
+See the [project README](./elliptic-curve-ecdsa/README.md) for implementation details and usage instructions.
 
-The implementation demonstrates how repeated transformations and key-dependent operations can be combined to construct a block cipher.
+## Repository Structure
 
-## 3. AES-Inspired Sponge Construction
+```text
+cryptography-implementations/
+├── cryptographic-algorithms/
+│   ├── modular_polynomial_arithmetic.py
+│   ├── feistel_network.py
+│   ├── aes_keccak.py
+│   ├── number_theory.py
+│   └── README.md
+│
+├── elliptic-curve-ecdsa/
+│   ├── bignum.py
+│   ├── ecdsa.py
+│   ├── keygen.py
+│   ├── test.py
+│   └── README.md
+│
+└── README.md
+```
 
-**File:** `aes_keccak.py`  
-**Exercises:** P5–P7
+## Technologies
 
-Implements a custom hash-like construction combining AES-inspired transformations with sponge-based processing.
+- **Language:** Python 3
+- **Dependencies:** Python standard library only
+- **Concepts:** Number theory, finite-field arithmetic, symmetric cryptography, elliptic curve cryptography, digital signatures
 
-### Personalized S-box
+## Usage
 
-- Generation of a 256-element substitution permutation.
-- Permutation cycle analysis.
-- Fixed-point detection and modification.
+Clone the repository:
 
-### Sponge Construction
+```bash
+git clone https://github.com/<username>/cryptography-implementations.git
+cd cryptography-implementations
+```
 
-- Block-based input absorption.
-- Internal state transformations.
-- Output generation through squeezing.
+Each project can be executed independently. Refer to its README for specific commands and examples.
 
-### AES-Inspired Transformations
+## Disclaimer
 
-- **SubBytes:** Byte substitution using the personalized S-box.
-- **ShiftRows:** Row-wise cyclic rotations.
-- **MixColumns:** Matrix-based state mixing using modular arithmetic.
-- Repeated transformation rounds during absorption and squeezing.
-
-This is an educational AES-inspired sponge construction, not an implementation of standard AES or Keccak.
-
-## 4. Number Theory
-
-**File:** `number_theory.py`  
-**Exercises:** P8–P9
-
-Implements number-theoretic algorithms commonly used in public-key cryptography.
-
-- Prime candidate generation using small-prime sieving.
-- Miller–Rabin probabilistic primality testing.
-- Primitive root calculation modulo a prime.
-- Chinese Remainder Theorem (CRT).
-- Modular arithmetic operations.
-
-These algorithms illustrate mathematical techniques used in cryptographic key generation and RSA-related computations.
-
-## 5. Arbitrary-Precision Arithmetic
-
-**File:** `bignum.py`  
-**Exercise:** P10
-
-Implements arithmetic operations on arbitrarily large non-negative integers represented as lists of digits in a configurable base.
-
-- Base conversion and normalization.
-- Comparison, addition, subtraction, and multiplication.
-- Integer division and remainder.
-- Modular reduction and subtraction.
-- Extended Euclidean Algorithm for large integers.
-- Modular multiplicative inversion.
-
-The implementation explores how arithmetic with large integers can be performed using custom data structures rather than relying directly on Python's built-in arbitrary-precision integer operations.
-
-## 6. Elliptic Curve Arithmetic
-
-**File:** `elliptic_curve.py`  
-**Exercises:** P11–P12
-
-Implements fundamental elliptic curve operations over prime fields.
-
-- Elliptic curve point addition.
-- Point doubling.
-- Handling the point at infinity.
-- Scalar multiplication using the double-and-add algorithm.
-- Elliptic curve operations using custom arbitrary-precision arithmetic.
-
-These operations form the mathematical foundation of elliptic curve cryptographic schemes.
-
-## 7. ECDSA Digital Signatures
-
-**File:** `ecdsa.py`  
-**Exercise:** P13
-
-Implements the signing operation of the **Elliptic Curve Digital Signature Algorithm (ECDSA)** using custom arbitrary-precision arithmetic.
-
-- Elliptic curve public-key derivation.
-- Ephemeral scalar generation.
-- Elliptic curve scalar multiplication.
-- Modular inversion.
-- Signature generation as a pair of hexadecimal values.
-
-The implementation uses the 112-bit `secp112r1` elliptic curve parameters from SEC 2 and builds on the arithmetic developed in earlier exercises.
-
-## Technologies and Concepts
-
-**Language:** Python
-
-**Cryptographic concepts:**
-- Symmetric encryption
-- Cryptographic hash constructions
-- Modular arithmetic and finite fields
-- Number theory and primality testing
-- Arbitrary-precision arithmetic
-- Elliptic curve cryptography
-- Digital signatures
-
-## Educational Purpose
-
-These implementations were developed for educational purposes to understand cryptographic algorithms at a mathematical and implementation level.
-
-They are not intended for production use or for protecting sensitive information. In particular, the custom cipher and hash constructions are not standardized cryptographic primitives, and the ECDSA exercise uses a legacy 112-bit curve that does not meet modern security requirements.
-
-## Acknowledgments
-
-Developed as part of the Cryptography coursework at **Tampere University, Finland**.
-
-The exercise specifications and algorithmic requirements were provided by the course. The Python programming implementations were completed independently.
+These implementations were developed for educational purposes. Some constructions use personalized algorithms or legacy cryptographic parameters and are **not intended for production security applications**.

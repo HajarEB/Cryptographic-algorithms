@@ -61,7 +61,6 @@ The test generates two ECDSA signatures for the same private key and message has
 - Cryptographic calculations use the custom big-number representation rather than Python's built-in arbitrary-precision integers.
 - The implementation uses the 112-bit `secp112r1` curve specified in the coursework.
 - The test script performs both basic signature output checks and mathematical ECDSA signature verification using the implemented arithmetic functions.
-- Some supporting arithmetic routines were provided as part of the coursework and integrated with the implemented functions.
 
 ## Disclaimer
 

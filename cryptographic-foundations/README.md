@@ -2,7 +2,7 @@
 
 A collection of cryptographic algorithms implemented in Python, covering modular and polynomial arithmetic, Feistel-based encryption, and a custom AES-Keccak sponge construction.
 
-Developed as part of the **Cryptography course at Tampere University, Finland**, with a focus on understanding and implementing the mathematical foundations and internal mechanisms of cryptographic systems.
+Developed as part of the **Cryptography course at Tampere University, Finland (2024)**, with a focus on understanding and implementing the mathematical foundations and internal mechanisms of cryptographic systems.
 
 ## Features
 

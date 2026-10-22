@@ -1,6 +1,6 @@
 # Cryptographic Algorithms – Python Implementations
 
-A collection of cryptographic algorithms implemented in Python as part of the **Cryptography course at Tampere University, Finland**.
+A collection of cryptographic algorithms implemented in Python as part of the **Cryptography course at Tampere University, Finland, 2024**.
 
 The project covers fundamental concepts in symmetric and asymmetric cryptography, including modular arithmetic, Feistel networks, substitution boxes, hash constructions, primality testing, arbitrary-precision arithmetic, elliptic curve cryptography, and digital signatures.
 

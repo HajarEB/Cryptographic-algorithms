@@ -1,6 +1,6 @@
 
-pubkey = ['AF4DA60C5F2C9386200997AFC2A6', '76E716D95601A8D4E7265EC87B96'] #base 16
-snum = '153071423' 
+pubkey = ['5C2100CB1A73E8ABC5C135ABBFD9', '225DC89EB7FCEDDC25BBB05D0E8A'] #base 16
+snum = '215463721' # serves as the private key
 
 from bignum import*
 import random as rand

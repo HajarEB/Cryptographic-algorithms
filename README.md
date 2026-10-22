@@ -1,10 +1,8 @@
 # Cryptographic Algorithms – Python Implementations
 
-A collection of cryptographic algorithms implemented in Python as part of the **Cryptography course at Tampere University, Finland, 2024**.
+Python implementations of cryptographic algorithms, developed as programming exercises in the **Cryptography course at Tampere University, Finland (2024)** to explore their mathematical foundations and internal workings.
 
-The project covers fundamental concepts in symmetric and asymmetric cryptography, including modular arithmetic, Feistel networks, substitution boxes, hash constructions, primality testing, arbitrary-precision arithmetic, elliptic curve cryptography, and digital signatures.
-
-The implementations were developed as programming exercises to explore the mathematical foundations and internal workings of cryptographic algorithms.
+The project covers symmetric and asymmetric cryptography, including modular arithmetic, Feistel networks, substitution boxes, hash constructions, primality testing, arbitrary-precision arithmetic, elliptic curve cryptography, and digital signatures.
 
 ## Projects
 
@@ -15,16 +13,12 @@ Number theory and symmetric constructions built from first principles.
 - Finite-field polynomial arithmetic, Miller–Rabin primality testing, primitive roots, and CRT.
 - A 16-round Feistel network and an AES/Keccak-inspired sponge hash.
 
-See the [project README](./cryptographic-foundations/README.md) for implementation details and usage instructions.
-
 ### 2. [Elliptic Curve Cryptography & ECDSA](./elliptic-curve-ecdsa/)
 
 ECDSA on the `secp112r1` curve, built on a custom arbitrary-precision integer library.
 
 - Big-number arithmetic and elliptic curve point operations, implemented without Python's built-in big integers.
 - Key generation, signing, and verification, tested with sign→verify round-trips.
-
-See the [project README](./elliptic-curve-ecdsa/README.md) for implementation details and usage instructions.
 
 ## Repository Structure
 

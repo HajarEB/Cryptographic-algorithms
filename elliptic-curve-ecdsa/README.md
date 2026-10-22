@@ -47,7 +47,7 @@ elliptic-curve-ecdsa/
 
 ## Usage
 
-Requires Python 3.13. No external dependencies.
+Requires Python (Tested with Python 3.13). No external dependencies.
 
 Run the example test:
 

@@ -60,7 +60,7 @@ def matrixMult(matrixA, matrixB):
 
 
 if __name__=='__main__':
-    personalBit = "5647a87b98e6005eb23d7a39"
+    personalBit = "86c0a00e7239d8fc24fd022e"
     key = "KEYSAREESSENTIAL" 
     numlist = fromletterstoNumbers(key)
     matrix4by4 =  [numlist[i:i+4] for i in range(0, 16, 4)] 

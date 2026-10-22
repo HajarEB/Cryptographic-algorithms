@@ -1,8 +1,10 @@
 # Elliptic Curve Cryptography & ECDSA
 
-Python implementation of elliptic curve cryptography (ECC) and the Elliptic Curve Digital Signature Algorithm (ECDSA), using custom arbitrary-precision arithmetic.
+This project was developed as part of the **Cryptography course at Tampere University, Finland**.
 
-The project covers big-number operations, elliptic curve point arithmetic, public key generation, and randomized ECDSA signing.
+It implements elliptic curve cryptography (ECC) and the Elliptic Curve Digital Signature Algorithm (ECDSA) in Python, using custom arbitrary-precision arithmetic.
+
+The implementation covers big-number operations, elliptic curve point arithmetic, public key generation, and randomized ECDSA signing.
 
 ## Features
 
@@ -72,4 +74,4 @@ The private key and message hash are hexadecimal strings. The third argument spe
 
 ## Disclaimer
 
-This project was developed for educational purposes as part of a university cryptography course. The 112-bit elliptic curve and the random-number generation approach are not suitable for production cryptographic applications.
+This project was developed for educational purposes as part of the Tampere University cryptography course. The 112-bit elliptic curve and the random-number generation approach are not suitable for production cryptographic applications.

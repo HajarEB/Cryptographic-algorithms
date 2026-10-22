@@ -189,8 +189,8 @@ def formH(studNum):
 if __name__=='__main__': 
 	
 	# Entered by the code tester
-	studentNum= "22222222"
-	d = 10
+	studentNum = "215463721" # student number
+	d = 10  # day of birth 
 	if d>31 or d<1:
 		raise SystemExit("Invalid date of Birth!")
 	
@@ -199,11 +199,20 @@ if __name__=='__main__':
 	c = getC(p) 
 	f = formF(c)
 	h = formH(studentNum)
+ 
 	if len(h)<6: # as in the stimulator, the length of h is min 6 digits
 		raise SystemExit("Invalid Student Number!")
+
 	remainder = reducepol(h,f,p)
 	r = nonModularProductCalc(remainder)
 	
-	#results
-	print("r =",r,"and p =",p)
-	
+	# Results
+	print("\n************ Polynomial Arithmetic Results ************")
+	print(f"Student Number: {studentNum}")
+	print(f"Date of Birth:  {d}")
+	print(f"Modulus (p):    {p}")
+	print(f"Polynomial f:   {f}")
+	print(f"Polynomial h:   {h}")
+	print(f"Remainder:      {remainder}")
+	print(f"Product (r):    {r}")
+		

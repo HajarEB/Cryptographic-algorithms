@@ -1,8 +1,21 @@
-from elboutahiri_P13 import*
+from ecdsa import*
 
-snum = '153071423'
-r1, c1 = ECDSA(snum, '1234567890abcdef', 32)
-r2, c2 = ECDSA(snum, '1234567890abcdef', 32)
+def test_ecdsa():
+    privkey = "153071423"
+    message_hash = "1234567890abcdef"
+    base = 32
 
-print(r1,c1)
-print(r2,c2)
+    r1, s1 = ECDSA(privkey, message_hash, base)
+    r2, s2 = ECDSA(privkey, message_hash, base)
+
+    print("Signature 1:", r1, s1)
+    print("Signature 2:", r2, s2)
+
+    assert all(isinstance(x, str) for x in (r1, s1, r2, s2))
+    assert all(int(x, 16) > 0 for x in (r1, s1, r2, s2))
+
+    print("Basic signature checks passed.")
+
+
+if __name__ == "__main__":
+    test_ecdsa()

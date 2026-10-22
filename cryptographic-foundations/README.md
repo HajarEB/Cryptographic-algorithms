@@ -73,7 +73,13 @@ Encrypts a predefined plaintext using a personalized 16-round encryption network
 python aes_keccak.py
 ```
 
-Prompts for an input file and the desired digest length in bytes, then processes the file and outputs a hexadecimal digest.
+Run the program and enter the requested input file and desired digest length in bytes when prompted.
+
+For example:
+- **Input file:** `sample.txt`
+- **Digest length:** `16`
+
+The values above are examples; users can specify a different input file and digest length. The program processes the specified file and outputs the resulting hexadecimal digest.
 
 ### Number Theory
 

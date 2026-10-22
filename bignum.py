@@ -1,5 +1,154 @@
-# Given: absolute values M and N, with indication of their actual signs: Ms and Ms.
-# Return the absolute value of M-N and the sign of M-N.
+global p
+
+def convert(N,B1,B2):
+    x = [0]
+    for digit in reversed(N):
+        x = multiply(x, [B1], B2)
+        x = add(x, [digit], B2)
+    return x
+
+def double_addECbig(A,k, c, Base):
+    r = [[0], [0]] #r =[x0,x1]
+    while compare(k, [0]) == 1:
+        if compare(reduce(k, [2], Base),[1]) == 0:         # If e is odd
+            r = addECbig(r,A,c, Base)
+        A = doublECbig(A,c, Base)  
+        k,_,_,_ = divide(k, [2], Base)               # Divide e by 2. The // takes the integer part.
+    return r
+
+
+# def scalarMultiply(scalar,a, c, B):
+#     r = [[0], [0]] #r =[x0,x1]
+#     while compare(scalar, [0]) == 1:
+#         if compare(reduce(scalar, [2], B),[1]) == 0:         # If e is odd
+#             r = addECbig(r,a,c, B)
+#         a = doublECbig(a,c, B)  
+#         scalar,_,_,_ = divide(scalar, [2], B)               # Divide e by 2. The // takes the integer part.
+#     return r
+
+
+
+
+def addECbig(x,y,c, B):
+    global p
+    p = c[0]
+
+    if compare(reduce(x[0], p, B), [0]) == 0  and compare(reduce(x[1], p, B), [0])== 0 : #if (x[0]%c[0] == x[1]%c[0]  and x[1]%c[0]== 0):
+        return [reduce(y[0],p,B), reduce(y[1],p,B)] #return [y[0]%c[0], y[1]%c[0]]
+    elif compare(reduce(y[0], p, B), [0]) == 0  and compare(reduce(y[1], p, B), [0]) == 0: # elif (y[0]%c[0] == y[1]%c[0] and y[1]%c[0]== 0):
+        return [reduce(x[0],p,B), reduce(x[1],p,B)] # return [x[0]%c[0], x[1]%c[0]]
+    elif compare(reduce(add(y[1], x[1], B), p, B), [0]) == 0 and compare(modsubtract(y[0], x[0], p, B), [0]) == 0: #elif (y[1]%c[0]==-x[1]%c[0] and x[0]%c[0] == y[0]%c[0]):
+        return [[0], [0]] # return [0,0]
+    
+    numerator = modsubtract(x[1],y[1], p, B) #(x[1]-y[1] ) 
+     
+    denominator = modsubtract(x[0],y[0], p, B) # x[0] - y[0]
+    
+    denominatorInverse = modinv(denominator, p, B)
+    
+    s =  multiply(numerator, denominatorInverse, B)  #(numerator/ denominator)
+    s = reduce(s,p,B)  # s = s % c[0]
+    return getXandY(p, s, x[0], y[0], x[1], B)
+
+def getXandY(p,s, x1,x2, y1, B):
+
+    s_2 = multiply(s, s, B)
+    addition = add(x1,x2, B)
+    x3 = modsubtract(s_2, addition, p, B)   # x3  =(s*s - (x[1] +x2) )% p
+
+    sub = subtract(x1, x3, B)
+    mult = multiply(s, sub, B)
+    y3 = modsubtract(mult, y1,p,B) #y3 = (s*(x[1] -x3) -y[1])%p
+    return [x3,y3]
+    
+def big_num_set_up(x, B):
+    x = tentoB(x, B)
+    return normalize(x, B)
+
+def doublECbig(x,c, B):
+    # print(c[0])
+    global p
+    p = c[0]
+    a = c[1]
+    # x[0] = big_num_set_up(x[0], B)
+    # x[1] = big_num_set_up(x[1], B)
+    # p = tentoB(c[0], B)
+    # a = tentoB(c[1], B)
+    if compare( reduce(x[0], p, B), [0]) == 0  and compare(reduce(x[1], p, B), [0]) == 0: #if (x[0]%c[0] == x[1]%c[0] and x[1]%c[0]== 0):
+        return [[0], [0]] #return [0, 0]  
+
+    mult_1 = multiply(x[0], x[0], B)
+
+    mult_2 = multiply([3], mult_1, B)
+
+    numerator = add(mult_2, a, B) #3*(x[0]**2) + c[1]
+
+    denominator = multiply([2], x[1], B)  #2* x[1]
+
+    denominatorInverse = modinv(denominator,p, B)
+    s = multiply(numerator, denominatorInverse, B) #(numerator/ denominator)
+    s = reduce(s,p,B) # s = s % c[0]
+    return getXandY(p, s, x[0], x[0], x[1], B)
+
+
+def tentoB(N, B):
+    if isinstance(N, str):
+        Nlength = len(N)
+        N = int(N)
+    else: 
+        Nlength = len(str(N))
+    if N == 0:
+        return [0]
+    else:
+        l =[]
+        i = Nlength 
+        while i> 0:
+            Bexp = B **i
+            val = N // Bexp
+            N = N - (val*Bexp)
+            l.append(val)
+            i -= 1
+        l.append(N)
+        return normalize(l[::-1], B)
+
+
+
+def add(M, N, B):
+    sum = [] 
+    i = 0
+    while i < len(M) or i < len(N):
+        if i >= len(M) :
+            valM = 0
+            valN = N[i]
+        elif i >= len(N):
+            valN = 0 
+            valM = M[i]
+        else:
+            valM = M[i]
+            valN = N[i]
+        sum.append(valM + valN)
+        i += 1
+    
+    return normalize(sum, B)
+
+
+def subtract(M, N, B):
+    if compare(M,N) == 1 or compare(M,N) == 0:
+        subtraction = [] 
+        i = 0
+        while i < len(M):
+            if i >= len(N):
+                valN = 0
+                valM = M[i]
+            else:
+                valM = M[i]
+                valN = N[i]
+            i += 1
+            subtraction.append(valM - valN)
+        return normalize(subtraction, B)
+    else:   
+        return modsubtract(M,N, p, B) 
+       
 def signedsubtract(M,Ms,N,Ns,B):
     if Ms==0:
         if M != [0]: raise SystemExit("M is not zero but its sign is.")
@@ -27,7 +176,68 @@ def signedsubtract(M,Ms,N,Ns,B):
             if comparison > 0:
                 return subtract(M,N,B), -1  # -(-M-(-N)) < 0
             else:
-                return subtract(N,M,B), 1   # -N-(-M) > 0
+                return subtract(N,M,B), 1   # -N-(-M) > 0    
+
+def multiply(M, N, B):
+    addList = []
+    for j in range(len(N)): 
+        mult = [0]*j
+        for i in M:
+            mult.append(i * N[j])
+        addList = add(addList,mult, B)
+    return normalize(addList, B)
+
+
+def modsubtract(M, N, P, B):
+    if compare(M,N) == 1 or compare(M,N) == 0:
+        result = subtract(M,N, B)
+    else:
+        addition = M
+        while compare(addition,N) != 1 and compare(addition,N) != 0:
+            addition = add(P,addition, B)
+        result = subtract(addition,N, B)
+    return reduce(result, P, B)
+
+def normalize(N, B):
+    lenN = len(N)
+    for i in range(lenN-1):   # Borrow from more significant side to make all non-negative
+        if N[i] < 0:
+            borrow = 1 + (-N[i]-1) // B # 
+            N[i] += B * borrow
+            N[i+1] -= borrow
+    if N[-1] < 0:
+        # Checking this in the beginning would not help when N[-2] is too far below zero.
+        print ("The number is negative (resulting in ", N, ")")
+        raise SystemExit
+
+    for i in range(lenN-1, 0, -1): # remove leading zeros: leave N[0].
+        if N[i]>0:
+            break
+        else:
+            N.pop()
+    carry = 0                   # carry excess values toward more significant side
+    for i in range(len(N)): # first within the existing N,...
+        N[i] += carry
+        carry = N[i] // B
+        N[i] %= B
+    while carry > 0:        # ...and then extending N if needed
+        N.append(carry % B)     # carry may be >= B, and .. 
+        carry //= B             # ... then there is more to extend
+    return N
+
+#Compare 2 big nums M[] and N[]
+def compare(M, N):
+    if len(M) == len(N):
+        for i, j in zip(M[::-1], N[::-1]):
+            if i > j:
+                return 1
+            elif j>i:
+                return -1
+        return 0
+    elif len(M) >len(N):
+        return 1
+    return -1
+
 
 def EEA(M, N, B):
     x, y, u, v = [0], [1], [1], [0]
@@ -36,7 +246,7 @@ def EEA(M, N, B):
     b = [ i for i in N]
     while a != [0]:
         q, r,_,_ = divide(b, a, B)      # q and r are always non-negative
-        uXq = multiply(u, q, B)     
+        uXq = multiply(u, q, B)   
         vXq= multiply(v, q, B)
         if uXq == 0: uXqs = 0
         else:        uXqs = us
@@ -56,10 +266,9 @@ def EEA(M, N, B):
 
     gcd = b
     return gcd, x, xs, y, ys
-	
-# Invert bignum M modulo P in base B, assuming that
-# the gcd of M and P equals 1. It would be good, and easy, to 
-# check this in the function. Try to do it.
+
+
+
 def modinv(M, P, B):
     gcd, x, xs, _, _ = EEA(M,P,B)
     if gcd != [1]:
@@ -117,208 +326,37 @@ def divide(M, N, B):
         return [0],R , countouter, countinner
     return Q, R , countouter, countinner  # See these two to know where the time was spent.
 
-
-
 def reduce(M,P,B):
     if compare(M,P) == -1:
         return M
     else: 
-        Q, R = divide(M, P, B)
+        Q, R,_,_ = divide(M, P, B)
         return R
-        
-
-#Convert a non-negative decimal number N to a bignum in base B
-def tentoB(N, B):
-    if isinstance(N, str):
-        Nlength = len(N)
-        N = int(N)
-    else: 
-        Nlength = len(str(N))
-    if N == 0:
-        return [0]
-    else:
-        l =[]
-        i = Nlength 
-        while i> 0:
-            Bexp = B **i
-            val = N // Bexp
-            N = N - (val*Bexp)
-            l.append(val)
-            i -= 1
-        l.append(N)
-        return l[::-1]
-
-
-def Bto10(N, B):
-    return sum(digit * B**i for i, digit in enumerate(N))
-
-
-def normalize(N, B):
-    lenN = len(N)
-    for i in range(lenN-1):   # Borrow from more significant side to make all non-negative
-        if N[i] < 0:
-            borrow = 1 + (-N[i]-1) // B # 
-            N[i] += B * borrow
-            N[i+1] -= borrow
-    if N[-1] < 0:
-        # Checking this in the beginning would not help when N[-2] is too far below zero.
-        print ("The number is negative (resulting in ", N, ")")
-        raise SystemExit
-
-    for i in range(lenN-1, 0, -1): # remove leading zeros: leave N[0].
-        if N[i]>0:
-            break
-        else:
-            N.pop()
-    carry = 0                   # carry excess values toward more significant side
-    for i in range(len(N)): # first within the existing N,...
-        N[i] += carry
-        carry = N[i] // B
-        N[i] %= B
-    while carry > 0:        # ...and then extending N if needed
-        N.append(carry % B)     # carry may be >= B, and .. 
-        carry //= B             # ... then there is more to extend
-    return N
-
-#Compare 2 big nums M[] and N[]
-def compare(M, N):
-    if len(M) == len(N):
-        for i, j in zip(M[::-1], N[::-1]): 
-            if i > j:
-                return 1
-            elif j>i:
-                return -1
-        return 0
-    elif len(M) >len(N):
-        return 1
-    return -1
-
-#add 2 big nums M[] and N[]
-def add(M, N, B):
-    sum = [] 
-    i = 0
-    while i < len(M) or i < len(N):
-        if i >= len(M) :
-            valM = 0
-            valN = N[i]
-        elif i >= len(N):
-            valN = 0 
-            valM = M[i]
-        else:
-            valM = M[i]
-            valN = N[i]
-        sum.append(valM + valN)
-        i += 1
     
-    return normalize(sum, B)
 
-
-def subtract(M, N, B):
-    if compare(M,N) == 1 or compare(M,N) == 0:
-        subtraction = [] 
-        i = 0
-        while i < len(M):
-            if i >= len(N):
-                valN = 0
-                valM = M[i]
-            else:
-                valM = M[i]
-                valN = N[i]
-            i += 1
-            subtraction.append(valM - valN)
-        return normalize(subtraction, B)
-    assert("M must be geater than N")
+  
     
-        
-
-def multiply(M, N, B):
-    addList = []
-    for j in range(len(N)): 
-        mult = [0]*j
-        for i in M:
-            mult.append(i * N[j])
-        addList = add(addList,mult, B)
-            
-    return normalize(addList, B)
-
-
-# Bignum N, given in base B1 is returned in base B2.
-def convert(N,B1,B2):
-    x = [0]
-    for digit in reversed(N):
-        x = multiply(x, [B1], B2)
-        x = add(x, [digit], B2)
-    return x
-
-def modsubtract(M, N, P, B):
-    if compare(M,N) == 1 or compare(M,N) == 0:
-        result = subtract(M,N,B)
-    else:
-        addition = M
-        while compare(addition,N) != 1 and compare(addition,N) != 0:
-            addition = add(P,addition, B)
-        result = subtract(addition,N,B)
-    return result
-        
-
-# print(compare([1,0,3],[1,0,2]))
-# print(compare([1,0,2], [1,0,3]))
-# print(compare([1,0,2,5], [1,0,3]))
-# print(compare([1,0,2], [1, 5, 0,2]))
-# print(compare([1,0,2], [1,0,2]))
-# print(add([3,2,8],[7,0,95],10))
-
-#add
-# print("Test 1:", add([1, 2, 3], [4, 5, 6], 10))  # Expected: [5, 7, 9]
-# print("Test 2:", add([7, 8, 9], [5, 6, 7], 10))  # Expected: [2, 5, 7, 1]
-# print("Test 3:", add([3, 4], [7, 8, 9], 10))    # Expected: [0, 3, 0, 1]
-# print("Test 4:", add([10, 15, 20], [5, 10, 5], 30))  # Expected: [15, 25, 25]
-# print("Test 5:", add([0], [0], 10))             # Expected: [0]
-# print("Test 6:", add([9, 9, 9], [1], 10))       # Expected: [0, 0, 0, 1]
-# print("Test 7:", add([1] + [0]*999 + [1], [1] + [0]*999 + [1], 10))  # Expected: [2] + [0]*999 + [2]
-
-
-#subtract
-# print("Test 1:", subtract([5, 7, 9], [1, 2, 3], 10))  # Expected: [4, 5, 6]
-# print("Test 2:", subtract([7, 8, 9], [5, 6, 7], 10))  # Expected: [2, 2, 2]
-# print("Test 3:", subtract([0, 3, 0, 1], [3, 4], 10))  # Expected: [7, 8, 9]
-# print("Test 4:", subtract([15, 25, 25], [5, 10, 5], 30))  # Expected: [10, 15, 20]
-# print("Test 5:", subtract([1], [0], 10))              # Expected: [1]
-# print("Test 6:", subtract([1, 0, 0, 0], [1], 10))     # check
-# print("Test 7:", subtract([0, 0, 0, 1], [1, 0, 0, 0], 10))     # Expected: [ 9, 9, 9]
-# print("Test 8:", subtract([2] + [0]*999 + [2], [1] + [0]*999 + [1], 10))  # Expected: [1] + [0]*999 + [1]
-
-#multiply
-# print("Test 0:", multiply([3, 2, 1], [6, 5, 4], 10))  # [8, 8, 0, 6, 5]
-# print("Test 1:", multiply([1, 2], [3, 4], 10))  # Expected: [3, 0, 9]
-# print("Test 2:", multiply([9, 9], [9, 9], 10))  # Expected: [1, 0, 8, 9]
-# print("Test 3:", multiply([0], [7, 8, 9], 10))  # Expected: [0]
-# print("Test 4:", multiply([1, 2, 3], [4, 5, 6], 10))  # Expected: [4, 3, 9, 9, 0, 2]
-# print("Test 5:", multiply([5], [5], 10))       # Expected: [5, 2]
-# print("Test 6:", multiply([1, 0, 0], [1, 0, 0], 10))  # Expected: [1, 0, 0, 0, 0]
-# print("Test 7:", multiply([1] + [0]*999, [1], 10))  # Expected: [1] + [0]*999
-# print("Test 8:", multiply([1, 2], [3, 4], 5))   # Expected: [3, 0, 0, 2]
-# print("Test 9:", multiply([15, 25, 20], [2, 3], 30))  # Expected: [0, 6, 28, 3, 2]
-
-
-#modsubtract
-# print("Test 1:", modsubtract([3], [2], [5], 10))  # Expected: [1]
-# print("Test 2:", modsubtract([2], [3], [5], 10))  # Expected: [4]
-# print("Test 3:", modsubtract([4], [4], [5], 10))  # Expected: [0] 
-# print("Test 4:", modsubtract([7, 1], [5], [10], 10))  # Expected: [2, 1]
-# print("Test 5:", modsubtract([9, 9], [8, 7], [100], 10))  # Expected: [1, 2]
-# print("Test 6:", modsubtract([1], [9], [10], 10))  # Expected: [2]
-# print("Test 7:", modsubtract([15, 25, 20], [5, 10], [30], 30))  # Expected: [10, 15, 20]
-# print("Test 8:", modsubtract([0], [0], [5], 10))  # Expected: [0] 
-# print("Test 9:", modsubtract([0, 0, 1], [9, 9], [1000], 10))  # CHECK: Expected: [1, 0, 0]  
-# print("Test 10:", modsubtract([5, 5], [3, 3], [10], 10))  # Expected: [2, 2]
-
-# print(modinv([0, 8, 3, 1], [7, 9, 9], 10) )
-
-#reduce
-# print("Test 1:", reduce([5], [10], 10))  # Expected: [5] 
-# print("Test 2:", reduce([10], [10], 10))  # Expected: [0] 
-# print("Test 3:", reduce([25], [10], 10))  # Expected: [5]
-# print("Test 4:", reduce([0,2,5, 2,5, 1], [0,0,1], 10))  # Expected: [20] (because 152520 mod 100 = 20)
-# print("Test 5:", reduce([1000], [999], 10))  # Expected: [1] (because 1000 mod 999 = 1)
-
+# def test():
+#     B = 10
+#     point1 = [[8,1,9], [1,3,4]]
+#     output = point1
+#     c = [[7,9,9], [7,8,1], [8,5,6]]
+#     for i in range(2):
+#         output = doublECbig(output,c, B)
+#         # print("double",i+1,  res)
+#         i +=1
+#     # output = addECbig(point1,res, c, B)
+    # print("add",output)
+    # print("output", scalarMultiply([4],[[8,1,9], [1,3,4]], [[7,9,9], [7,8,1], [8,5,6]], B )) 
+    # print(f"doublECbig([918, 431], [997, 187, 658], {B}) = {doublECbig([[8,1,9], [1,3,4]],[[7,9,9], [7,8,1], [8,5,6]], B)}  # Expected: [580,560]")
+    # print(f"doublECbig([895, 33], [997, 641, 72], {B}) = {doublECbig([[5,9,8], [3,3]], [[7,9,9], [1,4,6], [2,7]], B)}   # Expected: [631,760]")
+    # print(f"doublECbig([351, 99], [997, 449, 85], {B}) = {doublECbig([[1,5,3], [9,9]], [[7,9,9],[9,4,4], [5,8]], B)}  # Expected: [268,801]")
+    # print(f"doublECbig([251, 445], [1009, 506, 186], {B}) = {doublECbig([[1,5,2], [5,4,4]], [[9,0,0,1], [6,0,5], [6,8,1]], B)}  # Expected: [426,651]")
+    # print(f"doublECbig([887, 690], [997, 812, 126], {B}) = {doublECbig([[7,8,8], [0,9,6]], [[7,9,9], [2,1,8], [6,2,1]], B)}  # Expected: [12,98]")
+    # print(f"doublECbig([459, 851], [1009, 273, 538], {B}) = {doublECbig([[9,5,4], [1,5,8]], [[9,0,0,1], [3,7,2], [8,3,5]], B)}  # Expected: [380,492]")
+    
+    # print(f"addECbig([918, 431], [259, 116], [997, 187, 658], {B}) = {addECbig([[8,1,9], [1,3,4]], [[9,5,2], [6,1,1]], [[7,9,9], [7,8,1], [8,5,6]], B)}  # Expected: [954,104]")
+    # print(f"addECbig([895, 33], [179, 724], [997, 641, 72], {B}) = {addECbig([[5,9,8], [3,3]], [[9,7,1], [4,2,7]], [[7,9,9], [1,4,6], [2,7]], B)}  # Expected: [124,316]")
+    # print(f"addECbig([351, 99], [861, 209], [997, 449, 85], {B}) = {addECbig([[1,5,3], [9,9]], [[1,6,8], [9,0,2]], [[7,9,9], [9,4,4], [5,8]], B)}  # Expected: [48,25]")
+   
+# test()

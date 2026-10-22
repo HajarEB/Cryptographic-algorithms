@@ -40,6 +40,7 @@ cryptographic-algorithms/
 ├── modular_polynomial_arithmetic.py
 ├── feistel_network.py
 ├── aes_keccak.py
+├── number_theory.py
 └── README.md
 ```
 

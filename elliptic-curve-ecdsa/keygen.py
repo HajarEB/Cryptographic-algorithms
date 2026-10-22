@@ -17,17 +17,16 @@ def from16tohex(N):
     return ''.join([hex(i)[2].upper() for i in N[::-1]])
 
 
-def get_pub_key(snum):
+def get_pub_key(prvkey): #get public key from the private key
     Gx_16 = hexto16(Gx)
     Gy_16 = hexto16(Gy)
     p_16 = hexto16(p)
     a_16 = hexto16(a)
     b_16 = hexto16(b)
-    d = hexto16(snum)
+    d = hexto16(prvkey)
     G = [Gx_16,Gy_16]
     c_16 = [p_16,a_16, b_16]
-
-    A =  double_addECbig(G,d, c_16, 16)   #public key
-    pubkey = [from16tohex(A[0]), from16tohex(A[1])]
+    A =  double_addECbig(G,d, c_16, 16)   
+    pubkey = [from16tohex(A[0]), from16tohex(A[1])] #public key
     return pubkey
 

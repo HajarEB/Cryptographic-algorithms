@@ -1,19 +1,5 @@
 global p
 
-#subtract(M, N, B)
-#add(M, N, B):
-#subtract(M, N, B)
-#multiply(M, N, B)
-#modsubtract(M, N, P, B)
-#normalize(N, B)
-#compare(M, N)
-#divide(M, N, B)
-#reduce(M,P,B)
-#EEA(M, N, B)
-#scalarMultiply(scalar, a, p, B)
-#Bto10(N, B)
-
-
 def convert(N,B1,B2):
     x = [0]
     for digit in reversed(N):
@@ -29,18 +15,6 @@ def double_addECbig(A,k, c, Base):
         A = doublECbig(A,c, Base)  
         k,_,_,_ = divide(k, [2], Base)               # Divide e by 2. The // takes the integer part.
     return r
-
-
-# def scalarMultiply(scalar,a, c, B):
-#     r = [[0], [0]] #r =[x0,x1]
-#     while compare(scalar, [0]) == 1:
-#         if compare(reduce(scalar, [2], B),[1]) == 0:         # If e is odd
-#             r = addECbig(r,a,c, B)
-#         a = doublECbig(a,c, B)  
-#         scalar,_,_,_ = divide(scalar, [2], B)               # Divide e by 2. The // takes the integer part.
-#     return r
-
-
 
 
 def addECbig(x,y,c, B):
@@ -84,10 +58,6 @@ def doublECbig(x,c, B):
     global p
     p = c[0]
     a = c[1]
-    # x[0] = big_num_set_up(x[0], B)
-    # x[1] = big_num_set_up(x[1], B)
-    # p = tentoB(c[0], B)
-    # a = tentoB(c[1], B)
     if compare( reduce(x[0], p, B), [0]) == 0  and compare(reduce(x[1], p, B), [0]) == 0: #if (x[0]%c[0] == x[1]%c[0] and x[1]%c[0]== 0):
         return [[0], [0]] #return [0, 0]  
 
@@ -271,10 +241,8 @@ def EEA(M, N, B):
         n, ns = signedsubtract(y, ys, vXq, vXqs, B)
 
         b, a = a, r
-
         x, y = u, v
         xs, ys = us, vs
-
         u, v = m, n
         us, vs = ms, ns
 
@@ -348,29 +316,3 @@ def reduce(M,P,B):
         return R
     
 
-  
-    
-# def test():
-#     B = 10
-#     point1 = [[8,1,9], [1,3,4]]
-#     output = point1
-#     c = [[7,9,9], [7,8,1], [8,5,6]]
-#     for i in range(2):
-#         output = doublECbig(output,c, B)
-#         # print("double",i+1,  res)
-#         i +=1
-#     # output = addECbig(point1,res, c, B)
-    # print("add",output)
-    # print("output", scalarMultiply([4],[[8,1,9], [1,3,4]], [[7,9,9], [7,8,1], [8,5,6]], B )) 
-    # print(f"doublECbig([918, 431], [997, 187, 658], {B}) = {doublECbig([[8,1,9], [1,3,4]],[[7,9,9], [7,8,1], [8,5,6]], B)}  # Expected: [580,560]")
-    # print(f"doublECbig([895, 33], [997, 641, 72], {B}) = {doublECbig([[5,9,8], [3,3]], [[7,9,9], [1,4,6], [2,7]], B)}   # Expected: [631,760]")
-    # print(f"doublECbig([351, 99], [997, 449, 85], {B}) = {doublECbig([[1,5,3], [9,9]], [[7,9,9],[9,4,4], [5,8]], B)}  # Expected: [268,801]")
-    # print(f"doublECbig([251, 445], [1009, 506, 186], {B}) = {doublECbig([[1,5,2], [5,4,4]], [[9,0,0,1], [6,0,5], [6,8,1]], B)}  # Expected: [426,651]")
-    # print(f"doublECbig([887, 690], [997, 812, 126], {B}) = {doublECbig([[7,8,8], [0,9,6]], [[7,9,9], [2,1,8], [6,2,1]], B)}  # Expected: [12,98]")
-    # print(f"doublECbig([459, 851], [1009, 273, 538], {B}) = {doublECbig([[9,5,4], [1,5,8]], [[9,0,0,1], [3,7,2], [8,3,5]], B)}  # Expected: [380,492]")
-    
-    # print(f"addECbig([918, 431], [259, 116], [997, 187, 658], {B}) = {addECbig([[8,1,9], [1,3,4]], [[9,5,2], [6,1,1]], [[7,9,9], [7,8,1], [8,5,6]], B)}  # Expected: [954,104]")
-    # print(f"addECbig([895, 33], [179, 724], [997, 641, 72], {B}) = {addECbig([[5,9,8], [3,3]], [[9,7,1], [4,2,7]], [[7,9,9], [1,4,6], [2,7]], B)}  # Expected: [124,316]")
-    # print(f"addECbig([351, 99], [861, 209], [997, 449, 85], {B}) = {addECbig([[1,5,3], [9,9]], [[1,6,8], [9,0,2]], [[7,9,9], [9,4,4], [5,8]], B)}  # Expected: [48,25]")
-   
-# test()

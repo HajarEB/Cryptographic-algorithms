@@ -4,7 +4,7 @@ This project was developed as part of the **Cryptography course at Tampere Unive
 
 It implements elliptic curve cryptography (ECC) and the Elliptic Curve Digital Signature Algorithm (ECDSA) in Python, using custom arbitrary-precision arithmetic.
 
-The implementation covers big-number operations, elliptic curve point arithmetic, public key generation, and randomized ECDSA signing.
+The implementation covers big-number operations, elliptic curve point arithmetic, public key generation, randomized ECDSA signing, and signature verification.
 
 ## Features
 
@@ -28,6 +28,12 @@ The implementation covers big-number operations, elliptic curve point arithmetic
 ### 4. Public Key Generation (`keygen.py`)
 - Derivation of the public key from a private key using elliptic curve scalar multiplication.
 
+### 5. ECDSA Signature Verification (`test.py`)
+- Verification of ECDSA signatures using elliptic curve arithmetic.
+- Calculation of verification values using modular inversion and scalar multiplication.
+- Validation of generated signatures against the corresponding public key.
+- Reuse of the implemented big-number and elliptic curve functions.
+  
 ## Project Structure
 
 ```text
@@ -35,7 +41,7 @@ elliptic-curve-ecdsa/
 ├── bignum.py        # Big-number and elliptic curve operations
 ├── ecdsa.py         # ECDSA signature generation
 ├── keygen.py        # Public key generation
-└── test.py          # Basic signature generation tests
+└── test.py          # ECDSA signature generation and verification
 ```
 
 ## Usage
@@ -48,13 +54,13 @@ Run the example test:
 python test.py
 ```
 
-The test generates two ECDSA signatures for the same private key and message hash, prints both signatures, and performs basic checks on their output format and nonzero values.
+The test generates two ECDSA signatures for the same private key and message hash, prints both signatures, and checks their output format and nonzero values. It then verifies both signatures using the corresponding public key and the implemented big-number and elliptic curve operations.
 
 ## Implementation Notes
 
 - Cryptographic calculations use the custom big-number representation rather than Python's built-in arbitrary-precision integers.
 - The implementation uses the 112-bit `secp112r1` curve specified in the coursework.
-- The test script checks basic signature output properties; it does not perform cryptographic signature verification.
+- The test script performs both basic signature output checks and mathematical ECDSA signature verification using the implemented arithmetic functions.
 - Some supporting arithmetic routines were provided as part of the coursework and integrated with the implemented functions.
 
 ## Disclaimer

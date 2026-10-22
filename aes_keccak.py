@@ -264,13 +264,15 @@ if __name__=='__main__':
         exit(1)
     try:
         outQ = int(input("Please Enter the Number of Desired Output Bytes\n"))
+        print(f"\nAES-Keccak Digest ({outQ} bytes):")
+        print(readFile(fileName, outQ))
     except ValueError:
         print("\n\t\t***********************************************************************")
         print("\t\t\tError: Number of Desired Output Bytes Must be an INTEGER")
         print("\n\t\t***********************************************************************\n")
         exit(1)
         
-    print('\n',readFile(fileName,outQ),'\n')
+
     
 
                 

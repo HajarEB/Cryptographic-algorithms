@@ -1,12 +1,12 @@
 from ecdsa import*
 
 def test_ecdsa():
-    privkey = '215463721'
+    snum = "215463721" # is used to derive the private key
     message_hash = "1234567890abcdef"
     base = 32
 
-    r1, s1 = ECDSA(privkey, message_hash, base)
-    r2, s2 = ECDSA(privkey, message_hash, base)
+    r1, s1 = ECDSA(snum, message_hash, base)
+    r2, s2 = ECDSA(snum, message_hash, base)
 
     print("Signature 1:", r1, s1)
     print("Signature 2:", r2, s2)

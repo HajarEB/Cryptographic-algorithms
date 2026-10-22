@@ -64,6 +64,16 @@ cd cryptography-algorithms
 
 Each project can be executed independently. Refer to its README for specific commands and examples.
 
+## What I Learned / Challenges
+
+### 1. Cryptographic Foundations
+
+The main challenges were implementing polynomial arithmetic over finite fields and building working encryption and hashing pipelines from individual transformations. Analyzing the cycle structure of the S-box showed how a substitution mapping can be studied as a permutation. The Feistel network and the AES/Keccak-inspired sponge both required precise tracking of round states and byte representations across many transformations.
+
+### 2. Elliptic Curve Cryptography & ECDSA
+
+The main challenge was implementing elliptic curve operations on integers stored as digit arrays rather than Python’s built-in integers. Modular inversion, point doubling, and scalar multiplication all depended on the custom big-number arithmetic library, with values converted between numerical bases along the way. Building ECDSA on top of these layers showed how the correctness of ECDSA depends on the underlying arithmetic.
+
 ## Disclaimer
 
 These implementations were developed for educational purposes. Some constructions use personalized algorithms or legacy cryptographic parameters and are **not intended for production security applications**.

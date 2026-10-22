@@ -8,24 +8,24 @@ The implementation covers big-number operations, elliptic curve point arithmetic
 
 ## Features
 
-**1. Arbitrary-Precision Arithmetic (`bignum.py`)**
+### 1. Arbitrary-Precision Arithmetic (`bignum.py`)**
 - Big integers represented as lists of digits in an arbitrary base.
 - Addition, subtraction, and multiplication.
 - Modular arithmetic, division, and modular inversion using the Extended Euclidean Algorithm.
 - Conversion between numerical bases.
 
-**2. Elliptic Curve Operations (`bignum.py`)**
+### 2. Elliptic Curve Operations (`bignum.py`)**
 - Elliptic curve point addition and doubling.
 - Scalar multiplication using the double-and-add algorithm.
 - Elliptic curve operations performed using the big-number arithmetic functions.
 
-**3. ECDSA Signature Generation (`ecdsa.py`)**
+### 3. ECDSA Signature Generation (`ecdsa.py`)**
 - ECDSA signing using the SEC2 `secp112r1` elliptic curve.
 - Conversion of hexadecimal inputs into arbitrary-base big-number representations.
 - Random ephemeral-key generation for signing.
 - Generation of signature components `(r, s)` as hexadecimal strings.
 
-**4. Public Key Generation (`keygen.py`)**
+### 4. Public Key Generation (`keygen.py`)**
 - Derivation of the public key from a private key using elliptic curve scalar multiplication.
 
 ## Project Structure

@@ -1,4 +1,4 @@
-# Cryptographic Algorithms
+# Cryptographic Foundations
 
 A collection of cryptographic algorithms implemented in Python, covering modular and polynomial arithmetic, Feistel-based encryption, and a custom AES-Keccak sponge construction.
 

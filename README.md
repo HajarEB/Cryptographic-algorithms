@@ -8,7 +8,7 @@ The implementations were developed as programming exercises to explore the mathe
 
 ## Projects
 
-### 1. [Cryptographic Algorithms](./cryptographic-algorithms/)
+### 1. [Cryptographic Algorithms](./cryptographic-foundations/)
 
 Implementations of fundamental mathematical operations and symmetric cryptographic constructions.
 
@@ -21,7 +21,7 @@ Implementations of fundamental mathematical operations and symmetric cryptograph
 
 **Files:** `modular_polynomial_arithmetic.py`, `number_theory.py`, `feistel_network.py`, `aes_keccak.py`
 
-See the [project README](./cryptographic-algorithms/README.md) for implementation details and usage instructions.
+See the [project README](./cryptographic-foundations/README.md) for implementation details and usage instructions.
 
 ### 2. [Elliptic Curve Cryptography & ECDSA](./elliptic-curve-ecdsa/)
 
@@ -70,8 +70,8 @@ cryptography-implementations/
 Clone the repository:
 
 ```bash
-git clone https://github.com/<username>/cryptography-implementations.git
-cd cryptography-implementations
+git clone https://github.com/<username>/cryptography-algorithms.git
+cd cryptography-algorithms
 ```
 
 Each project can be executed independently. Refer to its README for specific commands and examples.

@@ -46,7 +46,7 @@ cryptographic-foundations/
 
 ## Requirements
 
-- Python 3
+- Python 3.13
 - No external dependencies (Python standard library only)
 
 ## Usage

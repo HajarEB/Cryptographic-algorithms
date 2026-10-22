@@ -6,7 +6,7 @@ b = '659EF8BA043916EEDE8911702B22'
 Gx = '9487239995A5EE76B55F9C2F098'
 Gy = 'A89CE5AF8724C0A23E0E0FF77500'
 q = 'DB7C2ABF62E35E7628DFAC6561C5'
-snum = '215463721' # student number and serves as private key
+
 
 
 def hexto16(N):
@@ -16,21 +16,18 @@ def hexto16(N):
 def from16tohex(N):
     return ''.join([hex(i)[2].upper() for i in N[::-1]])
 
-Gx_16 = hexto16(Gx)
-Gy_16 = hexto16(Gy)
-p_16 = hexto16(p)
-a_16 = hexto16(a)
-b_16 = hexto16(b)
-d = hexto16(snum)
-G = [Gx_16,Gy_16]
-c_16 = [p_16,a_16, b_16]
 
+def get_pub_key(snum):
+    Gx_16 = hexto16(Gx)
+    Gy_16 = hexto16(Gy)
+    p_16 = hexto16(p)
+    a_16 = hexto16(a)
+    b_16 = hexto16(b)
+    d = hexto16(snum)
+    G = [Gx_16,Gy_16]
+    c_16 = [p_16,a_16, b_16]
 
-A =  double_addECbig(G,d, c_16, 16)   #public key
-
-
-
-pubkey = [from16tohex(A[0]), from16tohex(A[1])]
-
-print(pubkey)
+    A =  double_addECbig(G,d, c_16, 16)   #public key
+    pubkey = [from16tohex(A[0]), from16tohex(A[1])]
+    return pubkey
 

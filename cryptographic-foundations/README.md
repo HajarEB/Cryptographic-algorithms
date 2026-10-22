@@ -51,13 +51,6 @@ cryptographic-foundations/
 
 ## Usage
 
-Clone the repository:
-
-```bash
-git clone https://github.com/HajarEB/cryptographic-foundations.git
-cd cryptographic-algorithms
-```
-
 ### Modular and Polynomial Arithmetic
 
 ```bash

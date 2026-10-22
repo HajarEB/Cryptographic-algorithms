@@ -1,5 +1,5 @@
 from bignum import*
-from key import*
+from keygen import*
 import random as rand
 
 

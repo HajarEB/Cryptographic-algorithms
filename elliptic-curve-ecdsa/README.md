@@ -1,6 +1,6 @@
 # Elliptic Curve Cryptography & ECDSA
 
-This project was developed as part of the **Cryptography course at Tampere University, Finland**, based on the course's programming assignments and supporting materials.
+This project was developed as part of the **Cryptography course at Tampere University, Finland (2024)**, based on the course's programming assignments and supporting materials.
 
 It implements elliptic curve cryptography (ECC) and the Elliptic Curve Digital Signature Algorithm (ECDSA) in Python, using custom arbitrary-precision arithmetic.
 

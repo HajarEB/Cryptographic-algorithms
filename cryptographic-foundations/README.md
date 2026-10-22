@@ -91,6 +91,7 @@ python number_theory.py
 Performs probabilistic prime-number search using Miller–Rabin, computes a primitive root modulo a prime, and solves a system of modular congruences using the Chinese Remainder Theorem (CRT).
 
 The program uses predefined example parameters and displays the results of each computation.
+
 ## Disclaimer
 
 These implementations are intended for educational and experimental purposes. The personalized Feistel network and AES-Keccak construction are not standardized cryptographic algorithms and should not be used for production security.

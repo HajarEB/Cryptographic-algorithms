@@ -1,9 +1,8 @@
 
-pubkey = ['AF4DA60C5F2C9386200997AEA1F3', '76E716D95601A8D4E7265EC36A14'] #base 16
-snum = '222222222' 
+pubkey = ['AF4DA60C5F2C9386200997AFC2A6', '76E716D95601A8D4E7265EC87B96'] #base 16
+snum = '153071423' 
 
 from bignum import*
-from elliptic_curve import scalarMultiply
 import random as rand
 
 
@@ -34,20 +33,19 @@ def bitstoB(K,B):
         res += hex(dec)[2:].upper()  # join them into a hex string
     return hextoB(res,B)
 
-def get_privkey(snum):
+def get_privkey(stnum):
     i=0
-    while i <len(snum):   # loop over snum
-        if not snum[i].isdigit():   #check if character in snum is digit
-            snum = snum[:i]+snum[i+1:]   #if not, remove this character
+    while i <len(stnum):   # loop over snum
+        if not stnum[i].isdigit():   #check if character in snum is digit
+            stnum = stnum[:i]+stnum[i+1:]   #if not, remove this character
         else:
             i+=1                         #increment the counter
-    return snum
+    return stnum
 
 # Return the decimal value of bignum N in base B 
 def Bto10(N, B):
     return sum(digit * B**i for i, digit in enumerate(N))
-def get_Ke(B):
-    global q_B
+def get_Ke(B,q_B):
         #get ke
     q_bin = bin(Bto10(q_B, B)) # convert q to base 10 then to binary
     length = len(q_bin) - 2 # get the binary number length and remove the starting 0b
@@ -57,31 +55,45 @@ def get_Ke(B):
         eph_key += str(rand.randint(0,1))  # generate a random bit
     eph_key = bitstoB(eph_key ,B)  # convert the bits string to a bignum in base B
     return eph_key
-def ECDSA(privkey, hash, B):
 
+#convert from base B to hex
+def convertBtoHex(a, B):
+    return from16tohex(convert(a,B,16))  #convert(N,B1,B2)
+def ECDSA(privkey, hash, B):
+    
+    # convert params to the base
+    p_B = convertParams(p, B)
+    Gx_B = convertParams(Gx, B)
+    Gy_B = convertParams(Gy, B)
+    a_B = convertParams(a, B)
+    b_B = convertParams(b, B)
+    q_B = convertParams(q, B)
+    
+    G = [Gx_B,Gy_B]  #generator coordinates
+    c_B = [p_B,a_B, b_B] #curve parameters c =[p,a,b]
+    
     privkey = hextoB(privkey, B) #convert private key to base B
     hash_B = hextoB(hash,B)       #convert hash to base B
     
     gcd = 0  #initialize gcd variable
     comp = 0  #initialize comp variable
-    eph_key = [0,1]
+
     while gcd != [1] or comp!= -1: #KE< q and gcd(Ke,q) = 1 
-        eph_key = get_Ke(B) #get the gcd(ke,q) and value of Ke
+        eph_key = get_Ke(B,q_B) #get the gcd(ke,q) and value of Ke
         eph_key = normalize(eph_key, B) # normalize the resulting Ke           #normalize(N, B)
         if any(val != 0 for val in eph_key): # ensure the eph_key !=[0]
             gcd,_,_,_,_= EEA(eph_key, q_B, B)  # compute the gcd(ke,q)         #EEA(M, N, B)
             comp = compare(eph_key, q_B) #compare Ke and q                     #compare(M, N)
     eph_key_inverse = modinv(eph_key,q_B,B) #compute ke^(-1)                   #modinv(M,P,B)
 
-    R = scalarMultiply(G, eph_key, c_B, B)  # R = kE* G                       #double_addECbig(A, k, c, Base)
+    R = double_addECbig(G, eph_key, c_B, B)  # R = kE* G                       #double_addECbig(A, k, c, Base)
     r = R[0] #extract xr
 
     product = multiply(privkey, r,B)   # d * r                                 #multiply(M, N, B)
     addition = add(product, hash_B , B)  # h(x)+ d*r                              #add(M, N, B)
     s = multiply(addition, eph_key_inverse,B) # (h(x)+ d*r)*Ke^(-1)            #multiply(M, N, B)
     s = reduce (s, q_B, B)  # (h(x)+ d*r)*Ke^-1 mod q                          #reduce(M,P,B)
-    
-    return from16tohex(convert(r,B,16)),from16tohex(convert(s,B,16))
+    return convertBtoHex(r, B),convertBtoHex(s, B)
 
 def convertParams(param, B):#from hexa to base B
     if len(param)>1 and param[0] == '0' and param[1]=='x':      #remove the starting 0x
@@ -99,27 +111,16 @@ b = '0x659EF8BA043916EEDE8911702B22'
 Gx = '0x9487239995A5EE76B55F9C2F098'
 Gy = '0xA89CE5AF8724C0A23E0E0FF77500'
 q = '0xDB7C2ABF62E35E7628DFAC6561C5'
-    #Hash
-hash = 'ABD48D239E35FAE3'
 
 
-# convert params to the base
-
-B = 5
-p_B = convertParams(p, B)
-Gx_B = convertParams(Gx, B)
-Gy_B = convertParams(Gy, B)
-a_B = convertParams(a, B)
-b_B = convertParams(b, B)
-q_B = convertParams(q, B)
-G = [Gx_B,Gy_B]  #generator coordinates
-c_B = [p_B,a_B, b_B] #curve parameters c =[p,a,b]
-
-d = get_privkey(snum) #get private key
 
 
-r,s = ECDSA(d, hash, B)  #call ECDSA signing function  
 
-print(r,s) #print the result
+# TO TEST THE RESULTS IN THIS FILE(uncomment this part)
+# Base = 5  #Base 
+# hash = '21c4010df6725330ceb327a5540a20e5' #Hash value
+# r,s = ECDSA(d, hash, Base)  #call ECDSA signing function  
+# d = get_privkey(snum) #get private key
+# print(r,s) #print the result
 
 

@@ -1,10 +1,6 @@
-
-pubkey = ['5C2100CB1A73E8ABC5C135ABBFD9', '225DC89EB7FCEDDC25BBB05D0E8A'] #base 16: obtained using keygen.py
-snum = '215463721' # serves as the private key
-
 from bignum import*
+from key import*
 import random as rand
-
 
 
 # A string N of hexadecimals (without initial 0x) into a bignum in base 16
@@ -59,8 +55,13 @@ def get_Ke(B,q_B):
 #convert from base B to hex
 def convertBtoHex(a, B):
     return from16tohex(convert(a,B,16))  #convert(N,B1,B2)
-def ECDSA(privkey, hash, B):
-    
+
+
+def ECDSA(snum, hash, B):
+    privkey = get_privkey(snum) # get the private key from student number 
+    pubkey = get_pub_key(privkey) # get the public key
+    print("Public Key", pubkey)
+        
     # convert params to the base
     p_B = convertParams(p, B)
     Gx_B = convertParams(Gx, B)
@@ -122,5 +123,4 @@ q = '0xDB7C2ABF62E35E7628DFAC6561C5'
 # r,s = ECDSA(d, hash, Base)  #call ECDSA signing function  
 # d = get_privkey(snum) #get private key
 # print(r,s) #print the result
-
 

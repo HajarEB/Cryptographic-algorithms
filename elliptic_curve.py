@@ -11,7 +11,7 @@ def scalarMultiply(a, scalar, p, B):
     r = [0, 0] #r =[x0,x1]
     scalar = Bto10(scalar, B)
     while scalar > 0:
-        if scalar % 2 == 1:         # If e is oddd
+        if scalar % 2 == 1:         # If e is odd
             r = addEC(r,a,p, B)
         a = doublEC(a,p, B)  
         scalar //= 2                # Divide e by 2. The // takes the integer part.

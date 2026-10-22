@@ -103,17 +103,27 @@ def chinese_remainder (u, v, p, q):
 
 if __name__ == "__main__":
 
-    # P8 - Prime search
-    print("Next probable prime:",  findPrime(1000000))
-            
-    # P9 - Primitive root
-    p = 1009
-    prime_factors = [2, 3, 7]  # Distinct factors of 1008
-    powers = [(p - 1) // factor for factor in prime_factors]
-    print("Primitive root:", find_prim_root(powers, p))
+    print("\n************ Number Theory Results ************")
 
-    # P9 - Chinese Remainder Theorem
-    print("CRT result:", chinese_remainder(123, 456, 1009, 1013))
+    # Prime search using Miller-Rabin
+    N = 1000000
+    print(f"\nNext probable prime >= {N}: {findPrime(N)}")
+
+    # Primitive root computation
+    p = 1009
+    prime_factors = [2, 3, 7]  # Distinct prime factors of p - 1
+    powers = [(p - 1) // factor for factor in prime_factors]
+    print(f"Primitive root modulo {p}: {find_prim_root(powers, p)}")
+
+    # Chinese Remainder Theorem
+    u, v = 123, 456
+    p, q = 1009, 1013
+    result = chinese_remainder(u, v, p, q)
+
+    print(f"CRT solution: x = {result}")
+    print(f"  x ≡ {u} (mod {p})")
+    print(f"  x ≡ {v} (mod {q})")
+        
 
    
         

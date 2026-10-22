@@ -58,7 +58,7 @@ cryptography-algorithms/
 Clone the repository:
 
 ```bash
-git clone https://github.com/<username>/cryptography-algorithms.git
+git clone https://github.com/HajarEB/cryptography-algorithms.git
 cd cryptography-algorithms
 ```
 

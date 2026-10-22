@@ -1,5 +1,5 @@
 
-pubkey = ['5C2100CB1A73E8ABC5C135ABBFD9', '225DC89EB7FCEDDC25BBB05D0E8A'] #base 16
+pubkey = ['5C2100CB1A73E8ABC5C135ABBFD9', '225DC89EB7FCEDDC25BBB05D0E8A'] #base 16: obtained using keygen.py
 snum = '215463721' # serves as the private key
 
 from bignum import*

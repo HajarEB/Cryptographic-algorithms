@@ -28,8 +28,9 @@ The implementation covers big-number operations, elliptic curve point arithmetic
 ### 4. Public Key Generation (`keygen.py`)
 - Derivation of the public key from a private key using elliptic curve scalar multiplication.
 
-### 5. ECDSA Signature Verification (`test.py`)
-- Verification of ECDSA signatures using elliptic curve arithmetic.
+### 5. ECDSA Signature Generation and Verification Test (`test.py`)
+- Generation of two ECDSA signatures for the same private key and message hash.
+- Verification of both signatures using elliptic curve arithmetic.
 - Calculation of verification values using modular inversion and scalar multiplication.
 - Validation of generated signatures against the corresponding public key.
 - Reuse of the implemented big-number and elliptic curve functions.
